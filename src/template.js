@@ -1,6 +1,8 @@
 //Build out separate sections of html for each Employee sub class (Engineer, Intern, Manager)
 //Combine sub classes to build full team html
 
+const Employee = require("../lib/Employee");
+
 const buildTeam = team => {
     //build Engineer html
     const buildEngineer = engineer => {
@@ -50,5 +52,28 @@ const buildTeam = team => {
     //blank array to hold each entered team member
     const teamArr = []
 
+    //build teamArr first with manager, then engineer(s), then intern(s),
+    //and generate the respective html for each employee
+    teamArr.push(team
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+        .filter(employee => employee.getRole() == 'Manager')
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+        .map(manager => buildManager(manager))
+    );
+
+    teamArr.push(team
+        .filter(employee => employee.getRole() == 'Engineer')
+        .map(engineer => buildEngineer(engineer))
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
+        .join('')
+    );
+
+    teamArr.push(team
+        .filter(employee => employee.getRole() == 'Intern')
+        .map(intern => buildIntern(intern))
+        .join('')
+    );
+    
+    //return fully built and ordered team array (includes their respective html sections)
     return teamArr.join('');
 }
