@@ -1,5 +1,15 @@
 # team-profile-generator
 
+__tests__/          // jest tests
+  Employee.test.js
+  Engineer.test.js
+  Intern.test.js
+  Manager.test.js
+dist/               // rendered output (HTML) and CSS style sheet
+lib/                // classes
+src/                // template helper code
+index.js            // runs the application
+
 AS A manager
 I WANT to generate a webpage that displays my team's basic info
 SO THAT I have quick access to their emails and GitHub profiles
