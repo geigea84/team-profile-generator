@@ -1,0 +1,12 @@
+h1 {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.team-member {
+    border: 3px solid black;
+    margin: 10px 0;
+    padding: 10px;
+}

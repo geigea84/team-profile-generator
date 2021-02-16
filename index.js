@@ -1,3 +1,5 @@
+//add colons to inquirer prompt messages?
+
 //reference Module 9 Weekly Challenge
 //import dependencies
 const inquirer = require('inquirer');
@@ -10,15 +12,16 @@ const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
 //import template
-const template = require('./src/template');
+const template = require('./src/template.js');
 
 //https://nodejs.org/api/path.html
-//generate a new directory on html build
-const teamFolder = path.resolve(__dirname, "team") ;
+//create path to new directory
+//__dirname in a node script returns the path of the folder where the current js file resides
+const teamFolder = path.resolve(__dirname, "team");
 
 //build html file in dynamically created directory
 //(connect to end of /team/ path)
-const teamPath = path.join(teamFolder, "index.html");
+const buildHtml = path.join(teamFolder, "index.html");
 
 //team members array?
 //blank array to hold pushed team info
@@ -32,40 +35,80 @@ function init() {
     //inquirer prompts to add manager
     //manager’s name, employee ID, email address, and office number
     function addManager() {
-        console.log('Build your team');
+        console.log('Start building your team:');
         inquirer.prompt([
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "managerName",
+                message: "Enter the manager's name"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "managerId",
+                message: "Enter the manager's employee ID"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "managerEmail",
+                message: "Enter the manager's email"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "managerOfficeNumber",
+                message: "Enter the manager's office number"
             }
-        ])
+            //call Promise to return input
+        ]).then(input => {
+            //use received input to build out Manager class and hold inside a const
+            const manager = new Manager(input.managerName, input.managerId, input.managerEmail, input.managerOfficeNumber);
+            //push new manager const to teamArr
+            teamArr.push(manager);
+            //call next function for inquirer list prompts
+            addTeamMember();
+        })
     }
-    
+
     //manager options: add engineer, add intern, done adding
     function addTeamMember() {
         inquirer.prompt([
             {
-                type: '',
-                name: '',
-                message: ''
-            },
-        ])
+                type: "list",
+                name: "addMember",
+                message: "Add a team member:",
+                choices: [
+                    "Engineer",
+                    "Intern",
+                    "I'm done adding team members"
+                ]
+            }
+            //call Promise to return input
+        ]).then(input => {
+            //switch statement to handle the different addMember options
+            switch (input.addMember) {
+                case "Engineer":
+                    //if chosen call addEngineer function
+                    addEngineer();
+                    break;
+                case "Intern":
+                    //if chosen call addIntern function
+                    addIntern();
+                    break;
+                default:
+                    //if chosen call buildTeam function
+                    //no case needed assuming manager is done adding members
+                    buildTeam();
+                    console.log("Generating team page...");
+                    console.log("");
+                    setTimeout(() => { 
+                        console.log("Done");
+                        console.log("");
+                    }, 1000);
+                    setTimeout(() => { 
+                        console.log("Please see index.html in the team folder to view your created page");
+                        console.log("");
+                    }, 1500);
+            }
+        });
     }
 
     //prompts to add engineer
@@ -73,26 +116,34 @@ function init() {
     function addEngineer() {
         inquirer.prompt([
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "engineerName",
+                message: "Enter the engineer's name"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "engineerId",
+                message: "Enter the engineer's employee ID"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "engineerEmail",
+                message: "Enter the engineer's email"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "engineerGitHub",
+                message: "Enter the engineer's GitHub username"
             }
-        ])
+            //call Promise to return input
+        ]).then(input => {
+            //use received input to build out Engineer class and hold inside a const
+            const engineer = new Engineer(input.engineerName, input.engineerId, input.engineerEmail, input.engineerGitHub);
+            //push new engineer const to teamArr
+            teamArr.push(engineer);
+            //circle back to run through addTeamMember prompts again
+            addTeamMember();
+        })
     }
 
     //prompts to add intern
@@ -100,25 +151,48 @@ function init() {
     function addIntern() {
         inquirer.prompt([
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "internName",
+                message: "Enter the intern's name"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "internId",
+                message: "Enter the intern's employee ID"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "internEmail",
+                message: "Enter the intern's email"
             },
             {
-                type: '',
-                name: '',
-                message: ''
+                type: "input",
+                name: "internSchool",
+                message: "Enter the intern's school"
             }
-        ])
+            //call Promise to return input
+        ]).then(input => {
+            //use received input to build out Intern class and hold inside a const
+            const intern = new Intern(input.internName, input.internId, input.internEmail, input.internSchool);
+            //push new intern const to teamArr
+            teamArr.push(intern);
+            //circle back to run through addTeamMember prompts again
+            addTeamMember();
+        })
     }
+
+    function buildTeam() {
+        //if team folder doesn't exist, create one
+        if (!fs.existsSync(teamFolder)) {
+            fs.mkdirSync(teamFolder)
+        }
+        //write html to file in existing team folder
+        fs.writeFileSync(buildHtml, template(teamArr));
+    }
+
+    //call addManager() to begin manager prompts
+    addManager();
 }
+
+//call init() to start inquirer
+init();

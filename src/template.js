@@ -4,7 +4,7 @@ const buildTeam = team => {
     //build Engineer html
     const buildEngineer = engineer => {
         return `
-            <div>
+            <div class="team-member">
                 <h2>${engineer.getName()}</h2>
                 <h3>${engineer.getRole()}</h3>
                 <ul>
@@ -19,7 +19,7 @@ const buildTeam = team => {
     //build Intern html
     const buildIntern = intern => {
         return `
-            <div>
+            <div class="team-member">
                 <h2>${intern.getName()}</h2>
                 <h3>${intern.getRole()}</h3>
                 <ul>
@@ -34,7 +34,7 @@ const buildTeam = team => {
     //build Manager html
     const buildManager = manager => {
         return `
-            <div>
+            <div class="team-member">
                 <h2>${manager.getName()}</h2>
                 <h3>${manager.getRole()}</h3>
                 <ul>
@@ -98,7 +98,7 @@ module.exports = team => {
             <title>Team</title>
             <meta name="description" content="">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" href="">
+            <link rel="stylesheet" href="../dist/style.css">
         </head>
         <body>
             ${buildTeam(team)}
