@@ -101,6 +101,11 @@ module.exports = team => {
             <link rel="stylesheet" href="../dist/style.css">
         </head>
         <body>
+
+            <header>
+                <h1>This is the Team</h1>
+            </header>
+
             ${buildTeam(team)}
         </body>
     </html>
