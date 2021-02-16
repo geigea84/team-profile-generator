@@ -1,8 +1,5 @@
 //Build out separate sections of html for each Employee sub class (Engineer, Intern, Manager)
 //Combine sub classes to build full team html
-
-const Employee = require("../lib/Employee");
-
 const buildTeam = team => {
     //build Engineer html
     const buildEngineer = engineer => {
