@@ -27,7 +27,7 @@
 
   ## Usage
 
-  Invoke the application with npm start
+  Invoke the application with node index.js
 
   ## License
 
