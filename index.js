@@ -104,7 +104,7 @@ function init() {
                         console.log("");
                     }, 1000);
                     setTimeout(() => { 
-                        console.log("Please see index.html in the team folder to view your created page");
+                        console.log("Please see index.html in the team directory to view your created page");
                         console.log("");
                     }, 1500);
             }
@@ -182,11 +182,11 @@ function init() {
     }
 
     function buildTeam() {
-        //if team folder doesn't exist, create one
+        //if team directory doesn't exist, create one
         if (!fs.existsSync(teamFolder)) {
             fs.mkdirSync(teamFolder)
         }
-        //write html to file in existing team folder
+        //write html to file in existing team directory
         fs.writeFileSync(buildHtml, template(teamArr));
     }
 

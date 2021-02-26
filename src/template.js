@@ -9,8 +9,8 @@ const buildTeam = team => {
                 <h3>${engineer.getRole()}</h3>
                 <ul>
                     <li>ID: ${engineer.getId()}</li>
-                    <li>Email: <a href="${engineer.getEmail()}">${engineer.getEmail()}</a></li>
-                    <li>GitHub: <a href="${engineer.getGithub()}">${engineer.getGithub()}</a></li>
+                    <li>Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+                    <li>GitHub: <a href="https://github.com/${engineer.getGithub()}">${engineer.getGithub()}</a></li>
                 </ul>
             </div>
         `;
@@ -24,7 +24,7 @@ const buildTeam = team => {
                 <h3>${intern.getRole()}</h3>
                 <ul>
                     <li>ID: ${intern.getId()}</li>
-                    <li>Email: <a href="${intern.getEmail()}">${intern.getEmail()}</a></li>
+                    <li>Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
                     <li>School: ${intern.getSchool()}</li>
                 </ul>
             </div>
@@ -39,7 +39,7 @@ const buildTeam = team => {
                 <h3>${manager.getRole()}</h3>
                 <ul>
                     <li>ID: ${manager.getId()}</li>
-                    <li>Email: <a href="${manager.getEmail()}">${manager.getEmail()}</a></li>
+                    <li>Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
                     <li>Office #: ${manager.getOfficeNumber()}</li>
                 </ul>
             </div>
